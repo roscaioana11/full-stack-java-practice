@@ -6,13 +6,13 @@ import java.util.Objects;
 
 import static java.util.Optional.ofNullable;
 
-public class DuplicatedProduct {
+public class NoDuplicateProduct {
     private String name;
     private int price;
     private List<Category> categories;
     private String description;
 
-//    public DuplicatedProduct(String name,int price,List<Category> categories,String description) {
+//    public NoDuplicateProduct(String name,int price,List<Category> categories,String description) {
 //        this.name = name;
 //        this.price = price;
 //        this.categories = ofNullable(categories)
@@ -41,7 +41,7 @@ public class DuplicatedProduct {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DuplicatedProduct that = (DuplicatedProduct) o;
+        NoDuplicateProduct that = (NoDuplicateProduct) o;
         return price == that.price && Objects.equals(name,that.name) && Objects.equals(categories,that.categories) && Objects.equals(description,that.description);
     }
 
@@ -52,7 +52,7 @@ public class DuplicatedProduct {
 
     @Override
     public String toString() {
-        return "DuplicatedProduct{" +
+        return "NoDuplicateProduct{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", categories=" + categories +
@@ -60,35 +60,35 @@ public class DuplicatedProduct {
                 '}';
     }
 
-    static class DuplicatedProductBuilder {
-        private DuplicatedProduct product = new DuplicatedProduct();
+    static class NoDuplicateProductBuilder {
+        private NoDuplicateProduct product = new NoDuplicateProduct();
 
-        public static DuplicatedProductBuilder productBuilder(){
+        public static NoDuplicateProductBuilder productBuilder(){
 
-            return new DuplicatedProductBuilder();
+            return new NoDuplicateProductBuilder();
         }
 
-        public DuplicatedProductBuilder name(String name){
+        public NoDuplicateProductBuilder name(String name){
             product.name = name;
             return this;
         }
-        public DuplicatedProductBuilder price(int price){
+        public NoDuplicateProductBuilder price(int price){
             product.price = price;
             return this;
         }
-        public DuplicatedProductBuilder category(Category category){
+        public NoDuplicateProductBuilder category(Category category){
             if(product.categories == null){
                 product.categories = new ArrayList<>();
             }
             product.categories.add(category);
             return this;
         }
-        public DuplicatedProductBuilder description(String description){
+        public NoDuplicateProductBuilder description(String description){
             product.description = description;
             return this;
         }
 
-        public DuplicatedProduct build(){
+        public NoDuplicateProduct build(){
             product.categories = ofNullable(product.categories) //ii da lock sa nu mai poata fi editat
                     .map(ArrayList::new)
                     .orElseGet(ArrayList::new);

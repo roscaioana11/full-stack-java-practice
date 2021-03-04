@@ -52,7 +52,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "DuplicatedProduct{" +
+        return "NoDuplicateProduct{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", categories=" + categories +
