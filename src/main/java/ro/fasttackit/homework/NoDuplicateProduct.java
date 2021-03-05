@@ -16,15 +16,6 @@ public class NoDuplicateProduct {
         this.categories = new ArrayList<>();
     }
 
-//    public NoDuplicateProduct(String name,int price,List<Category> categories,String description) {
-//        this.name = name;
-//        this.price = price;
-//        this.categories = ofNullable(categories)
-//                .map(ArrayList::new)
-//                .orElseGet(ArrayList::new);;
-//        this.description = description;
-//    }
-
     public String getName() {
         return name;
     }
@@ -34,7 +25,9 @@ public class NoDuplicateProduct {
     }
 
     public List<Category> getCategories() {
-        return categories;
+        return ofNullable(categories)
+                .map(ArrayList::new)
+                .orElseGet(ArrayList::new);
     }
 
     public String getDescription() {
@@ -81,7 +74,9 @@ public class NoDuplicateProduct {
             return this;
         }
         public NoDuplicateProductBuilder category(Category category){
-            product.categories.add(category);
+            if(category != null){
+                product.categories.add(category);
+            }
             return this;
         }
         public NoDuplicateProductBuilder description(String description){

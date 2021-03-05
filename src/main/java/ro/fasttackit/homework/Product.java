@@ -30,7 +30,9 @@ public class Product {
     }
 
     public List<Category> getCategories() {
-        return categories;
+        return ofNullable(categories)
+                .map(ArrayList::new)
+                .orElseGet(ArrayList::new);
     }
 
     public String getDescription() {
@@ -82,10 +84,9 @@ public class Product {
             return this;
         }
         public ProductBuilder category(Category category){
-//            if(this.categories == null){
-//                this.categories = new ArrayList<>();
-//            }
-            this.categories.add(category);
+            if(category != null){
+                this.categories.add(category);
+            }
             return this;
         }
         public ProductBuilder description(String description){
