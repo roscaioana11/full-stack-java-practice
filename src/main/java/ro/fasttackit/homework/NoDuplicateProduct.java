@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static java.util.Optional.ofNullable;
-
 public class NoDuplicateProduct {
     private String name;
     private int price;
@@ -25,9 +23,7 @@ public class NoDuplicateProduct {
     }
 
     public List<Category> getCategories() {
-        return ofNullable(categories)
-                .map(ArrayList::new)
-                .orElseGet(ArrayList::new);
+        return new ArrayList<>(categories); //se trimite o copie dupa lista originala, deci lista originala nu este niciodata accesata
     }
 
     public String getDescription() {
@@ -85,9 +81,6 @@ public class NoDuplicateProduct {
         }
 
         public NoDuplicateProduct build(){
-            product.categories = ofNullable(product.categories) //ii da lock sa nu mai poata fi editat
-                    .map(ArrayList::new)
-                    .orElseGet(ArrayList::new);
             return product;
         }
     }

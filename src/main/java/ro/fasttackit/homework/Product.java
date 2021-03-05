@@ -30,9 +30,7 @@ public class Product {
     }
 
     public List<Category> getCategories() {
-        return ofNullable(categories)
-                .map(ArrayList::new)
-                .orElseGet(ArrayList::new);
+        return new ArrayList<>(categories); //se trimite o copie dupa lista originala, deci lista originala nu este niciodata accesata
     }
 
     public String getDescription() {
