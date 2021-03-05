@@ -66,6 +66,9 @@ public class Product {
         private List<Category> categories;
         private String description;
 
+        public ProductBuilder(){
+            this.categories = new ArrayList<>();
+        }
         public static ProductBuilder productBuilder(){
             return new ProductBuilder();
         }
@@ -79,9 +82,9 @@ public class Product {
             return this;
         }
         public ProductBuilder category(Category category){
-            if(this.categories == null){
-                this.categories = new ArrayList<>();
-            }
+//            if(this.categories == null){
+//                this.categories = new ArrayList<>();
+//            }
             this.categories.add(category);
             return this;
         }

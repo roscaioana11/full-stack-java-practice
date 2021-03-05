@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class First {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { //poti da call la o functie in alta functie dar nu poti sa definesti o functie in alta functie
         immutabilityExercise();
 
 

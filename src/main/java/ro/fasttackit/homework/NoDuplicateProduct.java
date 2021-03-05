@@ -12,6 +12,10 @@ public class NoDuplicateProduct {
     private List<Category> categories;
     private String description;
 
+    private NoDuplicateProduct(){
+        this.categories = new ArrayList<>();
+    }
+
 //    public NoDuplicateProduct(String name,int price,List<Category> categories,String description) {
 //        this.name = name;
 //        this.price = price;
@@ -77,9 +81,6 @@ public class NoDuplicateProduct {
             return this;
         }
         public NoDuplicateProductBuilder category(Category category){
-            if(product.categories == null){
-                product.categories = new ArrayList<>();
-            }
             product.categories.add(category);
             return this;
         }
