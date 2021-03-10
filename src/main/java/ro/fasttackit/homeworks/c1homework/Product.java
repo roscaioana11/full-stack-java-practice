@@ -1,4 +1,4 @@
-package ro.fasttackit.homework;
+package ro.fasttackit.homeworks.c1homework;
 
 import java.util.ArrayList;
 import java.util.List;

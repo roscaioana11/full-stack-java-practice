@@ -1,4 +1,4 @@
-package ro.fasttackit.classes.c1;
+package ro.fasttackit.classes.curs1;
 
 import java.util.Objects;
 

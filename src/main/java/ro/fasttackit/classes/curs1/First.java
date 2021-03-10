@@ -1,8 +1,4 @@
-package ro.fasttackit.classes.c1;
-
-import ro.fasttackit.classes.c1.GreatTable;
-import ro.fasttackit.classes.c1.Person;
-import ro.fasttackit.classes.c1.Student;
+package ro.fasttackit.classes.curs1;
 
 import java.util.ArrayList;
 import java.util.List;
