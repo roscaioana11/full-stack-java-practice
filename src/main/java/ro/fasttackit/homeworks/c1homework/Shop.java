@@ -11,15 +11,8 @@ public class Shop {
 
     public void add(Product product, int inventoryCount){ //parametrii product&count vin dinafara metodei
         //boolean productAlreadyExists = false;
-        Product existingProduct = null;
-        for(Product existingProductKey : inventory.keySet()){ //am luat produsele existente 1 cate 1
-            if(existingProductKey.getName().toLowerCase().trim()
-                    .equals(product.getName().toLowerCase().trim())){ //toLowerCase-> face totul cu litere mici, .trim-> scoate spatiile din fata si din spate
-                //productAlreadyExists = true;
-                existingProduct = existingProductKey;
-                break;
-            }
-        }
+        Product existingProduct = findProduct(product.getName());
+
         //if(productAlreadyExists){
         if(existingProduct != null){
             inventory.put(existingProduct, inventory.get(existingProduct) + inventoryCount); // inventory.get(existingProduct)-> cantitatea care exista + inventoryCount-> cantitatea noua
@@ -29,14 +22,8 @@ public class Shop {
     }
 
     public void buy(String productName, int productCount){
-        Product existingProduct = null;
-        for(Product existingProductKey : inventory.keySet()){
-            if(existingProductKey.getName().toLowerCase().trim()
-                    .equals(productName.toLowerCase().trim())){
-                existingProduct = existingProductKey;
-                break;
-            }
-        }
+        Product existingProduct = findProduct(productName);
+
         if(existingProduct != null){
             if(inventory.get(existingProduct) >= productCount){
                 inventory.put(existingProduct,inventory.get(existingProduct) - productCount);
@@ -46,5 +33,17 @@ public class Shop {
         }else{
             throw new RuntimeException("Product not found!");
         }
+    }
+
+    public Product findProduct(String productName){
+        Product existingProduct = null;
+        for(Product existingProductKey : inventory.keySet()){
+            if(existingProductKey.getName().toLowerCase().trim()
+                    .equals(productName.toLowerCase().trim())){
+                existingProduct = existingProductKey;
+                break;
+            }
+        }
+        return existingProduct;
     }
 }
