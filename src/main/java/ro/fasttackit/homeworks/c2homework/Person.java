@@ -1,8 +1,9 @@
 package ro.fasttackit.homeworks.c2homework;
 
+import java.util.List;
 import java.util.Objects;
 
-public class Person {
+public class Person{
     private final String lastName;
     private final String firstName;
     private final int age;
@@ -23,6 +24,21 @@ public class Person {
 
     public int getAge() {
         return age;
+    }
+
+    public String getAgeRange(List<Integer> ageRanges){
+        int min = 0;
+        int max = 0;
+        for(int i = 0; i < ageRanges.size(); i++){
+            if(i - 1 >= 0){
+                min = ageRanges.get(i - 1);
+            }
+            max = ageRanges.get(i);
+            if(age > min && age <= max){
+                return min + "-" + max;
+            }
+        }
+        return "";
     }
 
     @Override

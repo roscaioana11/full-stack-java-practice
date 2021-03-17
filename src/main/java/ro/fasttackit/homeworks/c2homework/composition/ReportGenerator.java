@@ -5,9 +5,11 @@ import ro.fasttackit.homeworks.c2homework.Person;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ReportGenerator {
+public class ReportGenerator { //separat pt composition
     private final PersonProvider peopleProvider;
 
     public ReportGenerator(PersonProvider peopleProvider) {
@@ -21,26 +23,20 @@ public class ReportGenerator {
 
     private void writeReport(List<Person> people,String outputFile, List<Integer> ageRanges) throws IOException{
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))){
-            for(int i = 0; i < ageRanges.size(); i++){
-                int min = 0;
-                int max = 0;
-                if(i - 1 >= 0){
-                    min = ageRanges.get(i - 1);
-                }
-                max = ageRanges.get(i);
-                writeAgeRange(people, min, max, writer);
-                writeToFile(writer, "", true);
-            }
+            writeAgeRange(people, ageRanges,writer);
         }
     }
 
-    public void writeAgeRange(List<Person> people, int min, int max, BufferedWriter writer){
-        writeToFile(writer,min + "-" + max + ": ", false);
+    public void writeAgeRange(List<Person> people, List<Integer> ageRanges, BufferedWriter writer){
         people.stream()
-                .filter(person -> person.getAge() > min)
-                .filter(person -> person.getAge() <= max)
-                .map(person -> person.getLastName() + " " + person.getFirstName() + ",")
-                .forEach(line -> writeToFile(writer, line, false));
+                .collect(Collectors.groupingBy(person -> person.getAgeRange(ageRanges),LinkedHashMap::new, Collectors.toList()))
+                .forEach((keyAgeRange, valuePeople) -> {
+                    writeToFile(writer, keyAgeRange + ": ", false);
+                    valuePeople.stream()
+                            .map(person -> person.getLastName() + " " + person.getFirstName() + ",")
+                            .forEach(line -> writeToFile(writer, line, false));
+                    writeToFile(writer, "", true);
+                });
     }
 
     private void writeToFile(BufferedWriter writer,String line, boolean isNewLine) {
