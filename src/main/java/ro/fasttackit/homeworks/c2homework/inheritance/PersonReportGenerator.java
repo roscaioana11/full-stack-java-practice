@@ -1,5 +1,6 @@
 package ro.fasttackit.homeworks.c2homework.inheritance;
 
+import ro.fasttackit.homeworks.c2homework.AgeRange;
 import ro.fasttackit.homeworks.c2homework.Person;
 
 import java.io.BufferedWriter;
@@ -14,36 +15,21 @@ import static java.util.stream.Collectors.toList;
 
 abstract class PersonReportGenerator { //in acelasi loc, metodele nu le mai scrie din nou unde au fost mostenite pt ca deja exista aici
 
-    public void generateReport(String outputFile, List<Integer> ageRanges) throws IOException{
+    public void generateReport(String outputFile, AgeRange ageRanges) throws IOException{
         List<Person> people = readPeople();
         writeReport(people, outputFile, ageRanges);
     }
 
-    public void writeReport(List<Person> people,String outputFile, List<Integer> ageRanges) throws IOException {
+    public void writeReport(List<Person> people,String outputFile, AgeRange ageRanges) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
             writeAgeRange(people,ageRanges,writer);
         }
     }
 
-    public void writeAgeRange(List<Person> people, List<Integer> ageRanges, BufferedWriter writer){
+    public void writeAgeRange(List<Person> people,AgeRange ageRanges,BufferedWriter writer){
         people.stream()
-                .collect(groupingBy(person -> getAgeRange(ageRanges, person), LinkedHashMap::new, toList())) //HashMap nu ordoneaza lista, LinkedHashMap ordoneaza lista
+                .collect(groupingBy(person -> ageRanges.getAgeRange(person), LinkedHashMap::new, toList())) //HashMap nu ordoneaza lista, LinkedHashMap ordoneaza lista
                 .forEach((keyAgeRange, valuePeople) -> writePeopleToFile(writer, valuePeople, keyAgeRange));
-    }
-
-    private String getAgeRange(List<Integer> ageRanges, Person person){
-        int min = 0;
-        int max = 0;
-        for(int i = 0; i < ageRanges.size(); i++){
-            if(i - 1 >= 0){
-                min = ageRanges.get(i - 1);
-            }
-            max = ageRanges.get(i);
-            if(person.getAge() > min && person.getAge() <= max){
-                return min + "-" + max;
-            }
-        }
-        return "";
     }
 
     private void writePeopleToFile(BufferedWriter writer, List<Person> people, String groupName){

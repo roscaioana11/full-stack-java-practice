@@ -19,7 +19,8 @@ public class Test {
 //        double weight = scan.nextDouble();
 //        System.out.println("Then my weight on another planet is: " + Planet.PLUTO.getWeightOnAnotherPlanet(weight));
 
-        List<Integer> ageRanges = List.of(30, 50, 120);
+        List<Integer> ageRangesList = List.of(30, 50, 120);
+        AgeRange ageRanges = new AgeRange(ageRangesList);
 
         //Second exercise - Inheritance
         var inheritanceFilePeopleGenerator = new FilePersonReportGenerator("src/main/resources/people.txt");
