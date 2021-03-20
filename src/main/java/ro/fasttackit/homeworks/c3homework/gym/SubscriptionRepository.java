@@ -1,11 +1,10 @@
 package ro.fasttackit.homeworks.c3homework.gym;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.groupingBy;
 
 public class SubscriptionRepository implements Repository<Subscription>{
     private List<Subscription> subscriptions = new ArrayList<>();
@@ -25,7 +24,7 @@ public class SubscriptionRepository implements Repository<Subscription>{
     public List<Subscription> findAll(Predicate<Subscription> condition) {
         List<Subscription> foundSubscription = subscriptions.stream()
                 .filter(condition)
-                .collect(Collectors.toList());
+                .collect(toList());
         return foundSubscription;
     }
 
@@ -41,10 +40,10 @@ public class SubscriptionRepository implements Repository<Subscription>{
     public List<Subscription> getLatestMembersSubscriptions(){
         return subscriptions.stream()
                 .sorted(Comparator.comparing(Subscription::getSubscriptionEnd, Comparator.reverseOrder()))
-                .collect(Collectors.groupingBy(subscription -> subscription.getGymMember().getName(),LinkedHashMap::new, Collectors.toList())) //HashMap nu pastreaza ordinea listei
+                .collect(groupingBy(subscription -> subscription.getGymMember().getName(),LinkedHashMap::new, toList())) //HashMap nu pastreaza ordinea listei
                 .values()
                 .stream()
                 .map(group -> group.get(0))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }

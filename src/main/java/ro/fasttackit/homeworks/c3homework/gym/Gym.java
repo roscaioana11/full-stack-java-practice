@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.*;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.groupingBy;
 
 public class Gym {
     private final GymMemberRepository memberRepository;
@@ -91,7 +91,7 @@ public class Gym {
 
     public void writeRemainingTime(BufferedWriter writer, List<Subscription> latestSubscriptions, HashMap<RangeLimit, String> subscriptionLimits){
         latestSubscriptions.stream()
-                .collect(Collectors.groupingBy(subscription -> getRangeIndex(subscriptionLimits,(int) Duration.between(
+                .collect(groupingBy(subscription -> getRangeIndex(subscriptionLimits,(int) Duration.between(
                         LocalDateTime.now(), subscription.getSubscriptionEnd().atStartOfDay()).toHours())))
                 .forEach((keyColor,valueSubscription) -> writeSubscriptionRangeToFile(writer, keyColor, valueSubscription));
     }

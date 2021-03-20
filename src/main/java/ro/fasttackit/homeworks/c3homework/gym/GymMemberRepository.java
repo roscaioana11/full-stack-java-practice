@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.groupingBy;
 
 public class GymMemberRepository implements Repository<GymMember>{
     private List<GymMember> gymMembers = new ArrayList<>();
@@ -25,7 +26,7 @@ public class GymMemberRepository implements Repository<GymMember>{
     public List<GymMember> findAll(Predicate<GymMember> condition) {
         List<GymMember> foundGymMembers = gymMembers.stream()
                 .filter(condition)
-                .collect(Collectors.toList());
+                .collect(toList());
         return foundGymMembers;
     }
 
