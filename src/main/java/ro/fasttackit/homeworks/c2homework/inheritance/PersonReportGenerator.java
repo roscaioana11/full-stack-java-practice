@@ -5,9 +5,12 @@ import ro.fasttackit.homeworks.c2homework.Person;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 abstract class PersonReportGenerator { //in acelasi loc, metodele nu le mai scrie din nou unde au fost mostenite pt ca deja exista aici
 
@@ -24,14 +27,16 @@ abstract class PersonReportGenerator { //in acelasi loc, metodele nu le mai scri
 
     public void writeAgeRange(List<Person> people, List<Integer> ageRanges, BufferedWriter writer){
         people.stream()
-                .collect(Collectors.groupingBy(person -> person.getAgeRange(ageRanges),LinkedHashMap::new, Collectors.toList()))
-                .forEach((keyAgeRange, valuePeople) -> {
-                    writeToFile(writer, keyAgeRange + ": ", false);
-                    valuePeople.stream()
-                            .map(person -> person.getLastName() + " " + person.getFirstName() + ",")
-                            .forEach(line -> writeToFile(writer, line, false));
-                    writeToFile(writer, "", true);
-                });
+                .collect(groupingBy(person -> person.getAgeRange(ageRanges), LinkedHashMap::new, toList())) //HashMap nu ordoneaza lista, LinkedHashMap ordoneaza lista
+                .forEach((keyAgeRange, valuePeople) -> writePeopleToFile(writer, valuePeople, keyAgeRange));
+    }
+
+    private void writePeopleToFile(BufferedWriter writer, List<Person> people, String groupName){
+        writeToFile(writer, groupName + ": ", false);
+        people.stream()
+                .map(person -> person.getLastName() + " " + person.getFirstName() + ",")
+                .forEach(line -> writeToFile(writer, line, false));
+        writeToFile(writer, "", true);
     }
 
     private void writeToFile(BufferedWriter writer,String line, boolean isNewLine) {
