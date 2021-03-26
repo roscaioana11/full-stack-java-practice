@@ -16,7 +16,7 @@ public class SealedClasses {
         animals.add(new Parrot());
         animals.add(new Chicken());
         animals.add(new Fly());
-        animals.add(new LadyBug("Coccinella Septempunctata"));
+        animals.add(new LadyBug("Coccinella septempunctata"));
 
         animals.stream()
                 .forEach(animal -> System.out.println(animal.noise()));
