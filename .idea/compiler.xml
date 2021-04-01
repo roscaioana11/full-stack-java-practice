@@ -8,9 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="curs5" />
         <module name="curs5-web" />
+        <module name="course5-homework" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="course5-homework" target="15" />
       <module name="curs5" target="11" />
       <module name="curs5-web" target="15" />
       <module name="full-stack-java-practice" target="15" />
@@ -19,6 +21,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="course5-homework" options="-parameters" />
       <module name="curs5" options="-parameters" />
       <module name="curs5-web" options="-parameters" />
       <module name="spring-courses" options="-parameters" />

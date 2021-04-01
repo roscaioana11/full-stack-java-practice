@@ -9,15 +9,15 @@ public class Country {
     private final Continent continent;
     private final long area;
     private final long population;
-    private final List<String> neighbouts;
+    private final List<String> neighbours;
 
-    public Country(String name,String capital,Continent continent,long area,long population,List<String> neighbouts) {
+    public Country(String name,String capital,Continent continent,long area,long population,List<String> neighbours) {
         this.name = name;
         this.capital = capital;
         this.continent = continent;
         this.area = area;
         this.population = population;
-        this.neighbouts = neighbouts;
+        this.neighbours = neighbours;
     }
 
     public Continent getContinent() {
@@ -41,7 +41,7 @@ public class Country {
     }
 
     public List<String> getNeighbours() {
-        return neighbouts;
+        return neighbours;
     }
 
     @Override
@@ -49,12 +49,12 @@ public class Country {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
-        return area == country.area && population == country.population && Objects.equals(name,country.name) && Objects.equals(capital,country.capital) && Objects.equals(neighbouts,country.neighbouts);
+        return area == country.area && population == country.population && Objects.equals(name,country.name) && Objects.equals(capital,country.capital) && Objects.equals(neighbours,country.neighbours);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name,capital,area,population,neighbouts);
+        return Objects.hash(name,capital,area,population,neighbours);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Country {
                 ", capital='" + capital + '\'' +
                 ", area=" + area +
                 ", population=" + population +
-                ", neighbouts=" + neighbouts +
+                ", neighbours=" + neighbours +
                 '}';
     }
 }
