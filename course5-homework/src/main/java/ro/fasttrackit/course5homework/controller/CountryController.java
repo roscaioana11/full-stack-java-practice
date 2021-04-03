@@ -7,6 +7,7 @@ import ro.fasttrackit.course5homework.service.CountryService;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("countries")
 public class CountryController {
@@ -17,8 +18,13 @@ public class CountryController {
     }
 
     @GetMapping
-    List<Country> getAllCountries(){
-        return countryService.getAllCountries();
+    List<Country> getAllCountries(@RequestParam(required = false) String includeNeighbour,
+                                  @RequestParam(required = false) String excludeNeighbour){
+        if(includeNeighbour != null && excludeNeighbour != null){
+            return countryService.getCountriesWithNeighbourXWithoutNeighbourY(includeNeighbour, excludeNeighbour);
+        }else {
+            return countryService.getAllCountries();
+        }
     }
 
     @GetMapping("/names")
@@ -44,14 +50,14 @@ public class CountryController {
                 .orElseThrow(() -> new RuntimeException("Could not find country with id " + countryId));
     }
 
-    @GetMapping("/countries")
-    List<Country> getCountriesWithNeighbourXWithoutNeighbourY(@RequestParam(required = false) String includeNeighbour,
-                                                              @RequestParam(required = false) String excludeNeighbour){
-        return countryService.getCountriesWithNeighbourXWithoutNeighbourY(includeNeighbour, excludeNeighbour);
-    }
-
     @GetMapping("/population")
     Map<String, Long> getPopulationsForCountries(){
         return countryService.getPopulationsForCountries();
+    }
+
+    @GetMapping("/mine")
+    Country myCountry(@RequestHeader(name = "X-Country") String myCountry){
+        return countryService.getMyCountry(myCountry)
+                .orElseThrow(() ->new RuntimeException("Could not find country with name " + myCountry));
     }
 }
