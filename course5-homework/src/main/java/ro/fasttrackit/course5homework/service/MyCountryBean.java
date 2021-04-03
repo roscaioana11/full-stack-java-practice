@@ -11,14 +11,14 @@ import java.util.Optional;
 @Component
 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class MyCountryBean {
-    private final CountryReader countryReader;
+    private final FileCountryReader fileCountryReader;
 
-    public MyCountryBean(CountryReader countryReader) {
-        this.countryReader = countryReader;
+    public MyCountryBean(FileCountryReader fileCountryReader) {
+        this.fileCountryReader = fileCountryReader;
     }
 
     public Optional<Country> myCountry(String countryName){
-        return countryReader.getCountries()
+        return fileCountryReader.getCountries()
                 .stream()
                 .filter(country -> country.getName().equals(countryName))
                 .findFirst();
